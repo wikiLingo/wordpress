@@ -70,7 +70,7 @@ class WordPress_WikiLingo {
 		add_filter('get_comment_text',array($this,'get_comment_text'),5);
 
 		//Register scripts
-		add_action('wp_enqueue_scripts', array($this,'register_scripts'));
+		add_action('wp_footer', array($this,'wp_footer'), 5);
 	}
 
 	/*
@@ -218,12 +218,20 @@ class WordPress_WikiLingo {
 		return $comment;
 	}
 
+	function wp_footer($footer)
+	{
+		echo $this->parser->scripts->renderCss();
+		echo $this->parser->scripts->renderScript();
+	}
+
 	/*
 	* Register the scripts for the PageDown editor
 	*/
 	function register_scripts() {
 		//This script sets the ball rolling with the editor & preview
-   		//wp_register_script( 'wp-wikiLingo', $plugin_dir . "js/wikiLingo{$min}.js", $wikiLingo_dependancy, self::$version );
+		//foreach($this->parser->scripts->)
+
+   		wp_register_script( 'wp-wikiLingo', $plugin_dir . "js/wikiLingo{$min}.js", $wikiLingo_dependancy, self::$version );
 	}
 
 	function admin_scripts($hook){
