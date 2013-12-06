@@ -1,5 +1,11 @@
-wikiLingo for wordpress
-=========
+# WP-wikiLingo #
+**Contributors:** Robert Plummer RobertLeePlummerJr@gmail.com
+**Donate link:** http://www.github.com/wikiLingo
+**Tags:** markdown, formatting, prettify, syntax highlighter, code, write, program, html, js, css, wikiLingo, wiki, tiki
+**Requires at least:** 3.1
+**Tested up to:** 3.6
+**Stable tag:** 1.4
+
 Allows wikiLingo to be enabled in posts, comments and pages
 
 
