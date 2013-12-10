@@ -2,6 +2,7 @@ wikiLingo for wordpress
 =========
 Allows wikiLingo to be enabled in posts, comments and pages
 
+<a href="http://visop-dev.com/repo/download/wikiLingoDrupalModule.zip">Download Pre Alpha</a>
 
 ## Description ##
 This plug-in allows you to write using wikiLingo.
