@@ -42,7 +42,7 @@ class WordPress_WikiLingo {
 	);
 
 	public function __construct() {
-		require_once(dirname(__FILE__)."/wikiLingo/autoload.php");
+		require_once(dirname(__FILE__)."/vendor/autoload.php");
 		$this->parser = new WikiLingo\Parser();
 		register_activation_hook(__FILE__,array(__CLASS__, 'install' )); 
 		register_uninstall_hook(__FILE__,array( __CLASS__, 'uninstall' )); 
