@@ -69,9 +69,6 @@ class WordPress_WikiLingo {
 			$this->path = $siteurl . 'wp-content/plugins/wikiLingo/';
 		}
 
-		//remove tinymce
-		//add_action('admin_print_footer_scripts', array($this, 'remove_tinymce'));
-
 		//Allow translations
 		load_plugin_textdomain( 'wikiLingo', false, basename(dirname(__FILE__)).'/languages');
 
@@ -279,4 +276,6 @@ class WordPress_WikiLingo {
 }
 
 new WordPress_WikiLingo();
+
+//remove tinymce
 require_once('_WP_Editors.php');

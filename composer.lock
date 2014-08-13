@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "a34d09d919d851a14709d2dc552325ec",
+    "hash": "4d8b5ff9cf97f715ff3e5d2278133a1d",
     "packages": [
         {
             "name": "codemirror/codemirror",
@@ -234,12 +235,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikiLingo/wikiLingo.git",
-                "reference": "9c53e06116215eb59380902b6b53727be33da2da"
+                "reference": "a36fb3e8947cfcdeb45767331b54f4799b09345e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikiLingo/wikiLingo/zipball/9c53e06116215eb59380902b6b53727be33da2da",
-                "reference": "9c53e06116215eb59380902b6b53727be33da2da",
+                "url": "https://api.github.com/repos/wikiLingo/wikiLingo/zipball/a36fb3e8947cfcdeb45767331b54f4799b09345e",
+                "reference": "a36fb3e8947cfcdeb45767331b54f4799b09345e",
                 "shasum": ""
             },
             "require": {
@@ -278,7 +279,7 @@
                     "role": "Lead Developer"
                 }
             ],
-            "time": "2014-07-24 21:18:35"
+            "time": "2014-08-13 13:39:20"
         }
     ],
     "packages-dev": [
@@ -332,6 +333,7 @@
         "wikilingo/codemirror": 20,
         "bafs/testify": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.4.0"
     },
