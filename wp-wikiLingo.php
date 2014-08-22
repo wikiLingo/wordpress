@@ -207,12 +207,6 @@ class WordPress_WikiLingo {
 		echo $this->parser->scripts->renderScript();
 	}
 
-	public function remove_tinymce() {
-		if (has_action('admin_print_footer_scripts', 'wp_tiny_mce')) {
-			remove_action('admin_print_footer_scripts', 'wp_tiny_mce', 1);
-		}
-	}
-
 	/*
 	* Register the scripts for the PageDown editor
 	*/
@@ -253,7 +247,7 @@ class WordPress_WikiLingo {
 		wp_enqueue_style('wp-wikiLingo-bubble', $this->path . 'vendor/wikilingo/wikilingo/editor/bubble.css');
 		wp_enqueue_script('wp-wikiLingo-bubble', $this->path . 'vendor/wikilingo/wikilingo/editor/bubble.js');
 
-		wp_enqueue_script('wp-wikiLingo-editor', $this->path . 'wikilingo.editor.js');
+		wp_enqueue_script('wp-wikiLingo-editor', $this->path . 'wikiLingoEditor.js');
 
 		//load CodeMirror
 		wp_enqueue_style('wp-wikiLingo-codemirror', $this->path . 'vendor/codemirror/codemirror/lib/codemirror.css');

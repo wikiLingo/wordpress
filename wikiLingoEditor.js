@@ -17,7 +17,7 @@ var wikiLingoEditor = (function($) {
 
 		};
 
-	return function(editable, editableSource) {
+	return function(reflectUrl, editable, editableSource) {
 
 
 		//bubble is the contenteditable toolbar, it is very simple and instantiated here
@@ -73,7 +73,7 @@ var wikiLingoEditor = (function($) {
 				$.ajax({
 					type: 'POST',
 					dataType: 'json',
-					url: 'reflect.php',
+					url: reflectUrl,
 					data: {w: editable.innerHTML, reflect:'WYSIWYGWikiLingo'},
 					success: function(result) {
 						settingSource = true;
@@ -87,7 +87,7 @@ var wikiLingoEditor = (function($) {
 				$.ajax({
 					type: 'POST',
 					dataType: 'json',
-					url: 'reflect.php',
+					url: reflectUrl,
 					data: {w: codemirror.getValue(), reflect:'wikiLingoWYSIWYG'},
 					success: function(result) {
 						editable.innerHTML = result.output;
