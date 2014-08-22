@@ -14,6 +14,7 @@ class _WP_Editors
 	<div>
 		<textarea id="$editor_id"></textarea>
 	</div>
+	<span style="display: none;"><textarea id="content" class="wp-editor-area" name="content" autocomplete="off" style="display: none;">Test</textarea></span>
 	<input type="button" class="button" value="Toggle Editor" id="$editor_id-button"/>
 	<script>
 		jQuery(function() {
