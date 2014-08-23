@@ -6,7 +6,7 @@ Version: 1
 Author: Robert Plummer
 Author URI: http://github.com/wikiLingo
 */
-/*  Copyright 2013 Robert Plummer (RobertLeePlummerJr@gmail.com)
+/*  Copyright 2014 Robert Plummer (RobertLeePlummerJr@gmail.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -77,7 +77,7 @@ class WordPress_WikiLingo {
 		add_filter('get_comment_text',array($this,'get_comment_text'),5);
 
 		//Register scripts
-		//add_action('admin_head', array($this, 'admin_head'));
+		add_action('admin_head', array($this, 'admin_head'));
 		add_action('wp_footer', array($this,'wp_footer'), 5);
 	}
 
@@ -91,10 +91,10 @@ class WordPress_WikiLingo {
 		add_settings_field($this->domain.'_posttypes', __('Enable wikiLingo for:', 'wikiLingo'), array($this,'settings_posttypes'), 'writing', $this->domain.'_section');
 
 		//Remove html tab for wikiLingo posts
-		add_filter( 'user_can_richedit', array($this,'can_richedit'), 99 );
+		//add_filter( 'user_can_richedit', array($this,'can_richedit'), 99 );
 
 		//Add admin scripts
-		add_action('admin_enqueue_scripts', array($this,'admin_scripts'),10,1);
+		add_action('admin_enqueue_scripts', array($this,'register_scripts'),10,1);
 	}
 
 	public function can_richedit($bool){
@@ -137,29 +137,6 @@ class WordPress_WikiLingo {
 
 		return $clean;
 	}
-
-	
-
-	/*
-	* Function to determine if wikiLingo has been enabled for the current post_type or comment
-	* If an integer is passed it assumed to be a post (not comment) ID. Otherwise it assumed to be the
-	* the post type or 'comment' to test.
-	*
-	* @param (int|string) post ID or post type name or 'comment'
-	* @return (true|false). True if wikiLingo is enabled for this post type. False otherwise.
-	* @since 1.0
-	*/
-	function is_wikiLingoable($id_or_type){
-		if(is_int($id_or_type))
-			$type = get_post_type($id_or_type);
-		else
-			$type = esc_attr($id_or_type);
-
-		$options = get_option($this->domain);
-		$savedtypes = (array) $options['post_types'];
-
-		return in_array($type,$savedtypes);
-	}
 	
 	function get_option( $option ){
 		$options = get_option($this->domain);
@@ -169,30 +146,15 @@ class WordPress_WikiLingo {
 		return $options[$option];
 	}
 
-
-	/*
-	 * Convert wikiLingo to HTML prior to insertion to database
-	 * Also this ensures the prettify styles & scripts are in the queue
-	 * When on a home page prettify wont already have been queued.
-	 */
 	//For comments & pages
 	function the_content( $comment ){
-		//this is a page
-		if( $this->is_wikiLingoable( 'page' ) && isset($_REQUEST['page_id'])){
-			$comment = $this->parser->parse( $comment );
-		}
-
-		//this is a post
-		else if( $this->is_wikiLingoable( 'post' ) ){
-			$comment = $this->parser->parse( $comment );
-		}
+		$comment = $this->parser->parse( $comment );
 
 		return $comment;
 	}
 	function get_comment_text( $comment ){
-		if( $this->is_wikiLingoable( 'comment' ) ){
-			$comment = $this->parser->parse( $comment );
-		}
+		$comment = $this->parser->parse( $comment );
+
 		return $comment;
 	}
 
@@ -212,9 +174,6 @@ class WordPress_WikiLingo {
 	*/
 	function register_scripts() {
 		//This script sets the ball rolling with the editor & preview
-		//foreach($this->parser->scripts->)
-
-   		//wp_register_script( 'wp-wikiLingo', $plugin_dir . "js/wikiLingo{$min}.js", $wikiLingo_dependancy, self::$version );
 
 		//create a new group of possible syntaxes possible in the WikiLingo to WYSIWYG parser
 		$expressionSyntaxes = new WikiLingoWYSIWYG\ExpressionSyntaxes($this->parser->scripts);
@@ -258,14 +217,6 @@ class WordPress_WikiLingo {
 
 		//load icons for wikiLingo
 		wp_enqueue_style('wp-wikiLingo-icons', $this->path . 'vendor/wikilingo/wikilingo/editor/IcoMoon/sprites/sprites.css');
-	}
-
-	function admin_scripts($hook){
-		//$screen = get_current_screen();
-		//$post_type = $screen->post_type;
-    		//if ( ('post-new.php' == $hook || 'post.php' == $hook) && $this->is_wikiLingoable($post_type) ){
-				$this->register_scripts();
-		//}
 	}
 }
 

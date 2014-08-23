@@ -24,28 +24,33 @@ class _WP_Editors
 		}
 	</style>
 	<script>
-		jQuery(function() {
-			var visual = document.getElementById('$editor_id-wysiwyg'),
-				source = document.getElementById('$editor_id'),
-				button = document.getElementById('$editor_id-button'),
-				visualParentStyle = visual.parentNode.style,
-				sourceParentStyle = source.parentNode.style,
-				reflectUrl = '$siteUrl/wp-content/plugins/wikiLingo/wikiLingoReflect.php';
+		(function($, document) {
+			$(function() {
+				var visual = document.getElementById('$editor_id-wysiwyg'),
+					source = document.getElementById('$editor_id'),
+					button = document.getElementById('$editor_id-button'),
+					editor = wikiLingoEditor(reflectUrl, visual, source),
+					visualParentStyle = visual.parentNode.style,
+					sourceParentStyle = source.parentNode.style,
+					reflectUrl = '$siteUrl/wp-content/plugins/wikiLingo/wikiLingoReflect.php',
+					wikiLingoBubbles = $('nav.wikiLingo-bubble');
 
-			wikiLingoEditor(reflectUrl, visual, source);
-			sourceParentStyle.display = 'none';
+				sourceParentStyle.display = 'none';
 
-			button.onclick = function() {
-				if (sourceParentStyle.display === 'none') {
-					sourceParentStyle.display = '';
-					visualParentStyle.display = 'none';
-				} else {
-					sourceParentStyle.display = 'none';
-					visualParentStyle.display = '';
-				}
-			};
+				button.onclick = function() {
+					if (sourceParentStyle.display === 'none') {
+						sourceParentStyle.display = '';
+						visualParentStyle.display = 'none';
+						wikiLingoBubbles.hide();
+					} else {
+						sourceParentStyle.display = 'none';
+						visualParentStyle.display = '';
+						wikiLingoBubbles.show();
+					}
+				};
 
-		});
+			});
+		})(jQuery, document);
 	</script>
 </div>
 HTML;
