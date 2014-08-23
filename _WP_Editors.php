@@ -9,6 +9,8 @@ class _WP_Editors
 		$wysiwygContent = $wysiwygParser->parse($content);
 
 		$siteUrl = get_site_url();
+
+		$scripts = $wysiwygParser->scripts->renderCss() . $wysiwygParser->scripts->renderScript();
 		echo <<<HTML
 <div id="$editor_id-container" class="wp-editor-container">
 	<div>
@@ -24,15 +26,17 @@ class _WP_Editors
 		}
 	</style>
 	<script>
+		var $ = jQuery;
 		(function($, document) {
 			$(function() {
 				var visual = document.getElementById('$editor_id-wysiwyg'),
 					source = document.getElementById('$editor_id'),
 					button = document.getElementById('$editor_id-button'),
-					editor = wikiLingoEditor(reflectUrl, visual, source),
+					reflectUrl = '$siteUrl/wp-content/plugins/wikiLingo/wikiLingoReflect.php',
+					folderUrl = '$siteUrl/wp-content/plugins/wikiLingo/vendor/wikilingo/wikilingo/',
+					editor = wikiLingoEditor(reflectUrl, folderUrl, visual, source),
 					visualParentStyle = visual.parentNode.style,
 					sourceParentStyle = source.parentNode.style,
-					reflectUrl = '$siteUrl/wp-content/plugins/wikiLingo/wikiLingoReflect.php',
 					wikiLingoBubbles = $('nav.wikiLingo-bubble');
 
 				sourceParentStyle.display = 'none';
@@ -52,6 +56,7 @@ class _WP_Editors
 			});
 		})(jQuery, document);
 	</script>
+	$scripts
 </div>
 HTML;
 

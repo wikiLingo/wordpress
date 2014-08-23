@@ -2,9 +2,9 @@ var wikiLingoEditor = (function($) {
 	"use strict";
 
 	var
-		WLPlugin = function(el) {
+		WLPlugin = function(el, url) {
 			if (el.getAttribute('data-draggable') == 'true') {
-				new WLPluginAssistant(el);
+				new WLPluginAssistant(el, url);
 			}
 		},
 		color = function(element) {
@@ -17,7 +17,7 @@ var wikiLingoEditor = (function($) {
 
 		};
 
-	return function(reflectUrl, editable, editableSource) {
+	return function(reflectUrl, folderUrl,  editable, editableSource) {
 
 
 		//bubble is the contenteditable toolbar, it is very simple and instantiated here
@@ -137,7 +137,7 @@ var wikiLingoEditor = (function($) {
 			.on('resetWLPlugins', function() {
 				if (window.wLPlugins !== undefined) {
 					for(var i = 0; i < wLPlugins.length; i++) {
-						new WLPlugin(document.getElementById(wLPlugins[i]));
+						new WLPlugin(document.getElementById(wLPlugins[i]), folderUrl);
 					}
 				}
 			})

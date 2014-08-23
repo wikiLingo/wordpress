@@ -25,6 +25,7 @@ Author URI: http://github.com/wikiLingo
 class WordPress_WikiLingo {
 
 	public $domain = 'wikiLingo';
+	public static $scripts;
 	public $parser;
 	public $path;
 
@@ -41,7 +42,10 @@ class WordPress_WikiLingo {
 
 	public function __construct() {
 		require_once(dirname(__FILE__)."/vendor/autoload.php");
-		$this->parser = new WikiLingo\Parser();
+		self::$scripts = new WikiLingo\Utilities\Scripts();
+		$this->parser = new WikiLingo\Parser(self::$scripts);
+		self::$scripts->addScript('var $ = jQuery;');
+
 		register_activation_hook(__FILE__,array(__CLASS__, 'install' ));
 		register_uninstall_hook(__FILE__,array( __CLASS__, 'uninstall' ));
 		add_action( 'init', array( $this, 'init' ) );
@@ -79,6 +83,12 @@ class WordPress_WikiLingo {
 		//Register scripts
 		add_action('admin_head', array($this, 'admin_head'));
 		add_action('wp_footer', array($this,'wp_footer'), 5);
+
+		//This script sets the ball rolling with the editor & preview
+
+		wp_enqueue_script('wp-jQuery-ui', $this->path . 'vendor/jquery/jquery-ui/ui/jquery-ui.js', array(), false, true);
+		wp_enqueue_style('wp-jQuery-ui', $this->path . 'vendor/jquery/jquery-ui/themes/base/jquery.ui.all.css');
+
 	}
 
 	/*
@@ -160,23 +170,21 @@ class WordPress_WikiLingo {
 
 	function admin_head()
 	{
-
 	}
 
 	function wp_footer($footer)
 	{
-		echo $this->parser->scripts->renderCss();
-		echo $this->parser->scripts->renderScript();
+		echo self::$scripts->renderCss();
+		echo self::$scripts->renderScript();
 	}
 
 	/*
 	* Register the scripts for the PageDown editor
 	*/
 	function register_scripts() {
-		//This script sets the ball rolling with the editor & preview
 
 		//create a new group of possible syntaxes possible in the WikiLingo to WYSIWYG parser
-		$expressionSyntaxes = new WikiLingoWYSIWYG\ExpressionSyntaxes($this->parser->scripts);
+		$expressionSyntaxes = new WikiLingoWYSIWYG\ExpressionSyntaxes(self::$scripts);
 
 		//register expression types so that they can be turned into json and sent to browser
 		$expressionSyntaxes->registerExpressionTypes();
