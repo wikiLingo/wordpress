@@ -118,7 +118,7 @@ class WordPress_WikiLingo {
 
 	function settings(){
 		//settings_fields('wikiLingo');
-		echo '<p>'.__("Select the post types or comments that will support wikiLingo. Comments and bbPress forums can also feature a wikiLingo 'help bar' and previewer. Automatic syntax highlighting can be provided by <a href='http://code.google.com/p/google-code-prettify/' target='_blank'>Prettify</a>.",$this->domain).'</p>';
+		echo '<p>'.__("Select the post types or comments that will support wikiLingo",$this->domain).'</p>';
 	}
 
 	function settings_posttypes(){
@@ -157,8 +157,32 @@ class WordPress_WikiLingo {
 	}
 
 	//For comments & pages
-	function the_content( $comment ){
-		$comment = $this->parser->parse( $comment );
+	function the_content( $content ){
+		$comment = $this->parser->parse( $content );
+
+		$current_user = wp_get_current_user();
+		if (in_array('administrator', $current_user->roles)) {
+			add_action('wp_footer', array($this,'register_scripts'), 5);
+
+			wp_enqueue_script('wp-wikiLingo-inline-editor', $this->path . 'wikiLingoInlineEditor.js');
+
+			$siteUrl = get_site_url();
+
+			$this->parser->scripts
+				->addScript(<<<JS
+$('article').each(function() {
+	var article = this,
+		articleId = article.getAttribute('id').replace('post-', '') * 1,
+		editableArea = $(this).find('.entry-content')[0];
+
+	$(article).find('a.post-edit-link').click(function() {
+		wikiLingoInlineEditor(articleId, editableArea, '$siteUrl');
+		return false;
+	});
+});
+JS
+);
+		}
 
 		return $comment;
 	}
@@ -166,10 +190,6 @@ class WordPress_WikiLingo {
 		$comment = $this->parser->parse( $comment );
 
 		return $comment;
-	}
-
-	function admin_head()
-	{
 	}
 
 	function wp_footer($footer)
@@ -214,7 +234,9 @@ class WordPress_WikiLingo {
 		wp_enqueue_style('wp-wikiLingo-bubble', $this->path . 'vendor/wikilingo/wikilingo/editor/bubble.css');
 		wp_enqueue_script('wp-wikiLingo-bubble', $this->path . 'vendor/wikilingo/wikilingo/editor/bubble.js');
 
+		wp_enqueue_style('wp-wikiLingo-editor', $this->path . 'wikiLingoEditor.css');
 		wp_enqueue_script('wp-wikiLingo-editor', $this->path . 'wikiLingoEditor.js');
+
 
 		//load CodeMirror
 		wp_enqueue_style('wp-wikiLingo-codemirror', $this->path . 'vendor/codemirror/codemirror/lib/codemirror.css');

@@ -152,12 +152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakiestfu/Medium.js.git",
-                "reference": "092ac5fbefbe0d8a42c77d5c462d299d780ea0ae"
+                "reference": "2973fafc2cd0cd5c3da80301dbe0d2e0d12446f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/092ac5fbefbe0d8a42c77d5c462d299d780ea0ae",
-                "reference": "092ac5fbefbe0d8a42c77d5c462d299d780ea0ae",
+                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/2973fafc2cd0cd5c3da80301dbe0d2e0d12446f4",
+                "reference": "2973fafc2cd0cd5c3da80301dbe0d2e0d12446f4",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +183,7 @@
                     "role": "Lead Developer"
                 }
             ],
-            "time": "2014-08-07 19:53:16"
+            "time": "2014-08-27 20:57:58"
         },
         {
             "name": "rangy/rangy",
@@ -235,12 +235,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikiLingo/wikiLingo.git",
-                "reference": "a36fb3e8947cfcdeb45767331b54f4799b09345e"
+                "reference": "0ae7970ba47b40a2c9f36007eff4fae025563dbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikiLingo/wikiLingo/zipball/a36fb3e8947cfcdeb45767331b54f4799b09345e",
-                "reference": "a36fb3e8947cfcdeb45767331b54f4799b09345e",
+                "url": "https://api.github.com/repos/wikiLingo/wikiLingo/zipball/0ae7970ba47b40a2c9f36007eff4fae025563dbe",
+                "reference": "0ae7970ba47b40a2c9f36007eff4fae025563dbe",
                 "shasum": ""
             },
             "require": {
@@ -279,7 +279,7 @@
                     "role": "Lead Developer"
                 }
             ],
-            "time": "2014-08-13 13:39:20"
+            "time": "2014-08-27 22:59:18"
         }
     ],
     "packages-dev": [

@@ -20,11 +20,6 @@ class _WP_Editors
 		<textarea id="$editor_id" name="content">$content</textarea>
 	</div>
 	<input type="button" class="button" value="Toggle Editor" id="$editor_id-button"/>
-	<style>
-		.wikiLingo-bubble {
-			z-index: 9999;
-		}
-	</style>
 	<script>
 		var $ = jQuery;
 		(function($, document) {
