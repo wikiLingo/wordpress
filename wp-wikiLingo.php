@@ -81,7 +81,7 @@ class WordPress_WikiLingo {
 		add_filter('get_comment_text',array($this,'get_comment_text'),5);
 
 		//Register scripts
-		add_action('admin_head', array($this, 'admin_head'));
+		//add_action('admin_head', array($this, 'admin_head'));
 		add_action('wp_footer', array($this,'wp_footer'), 5);
 
 		//This script sets the ball rolling with the editor & preview
@@ -176,7 +176,7 @@ $('article').each(function() {
 		editableArea = $(this).find('.entry-content')[0];
 
 	$(article).find('a.post-edit-link').click(function() {
-		wikiLingoInlineEditor(articleId, editableArea, '$siteUrl');
+		wikiLingoInlineEditor($(this), $(this).parent().parent(), articleId, editableArea, '$siteUrl');
 		return false;
 	});
 });
